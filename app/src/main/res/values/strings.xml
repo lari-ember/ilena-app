@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ilena App</string>
+    <string name="hint_nome_treino">Nome do treino</string>
+    <string name="hint_tipo_treino">Tipo (ex: musculação, cardio)</string>
+    <string name="hint_duracao_treino">Duração (minutos)</string>
+    <string name="btn_registrar_treino">Registrar Treino</string>
+    <string name="preencha_todos_campos">Por favor, preencha todos os campos.</string>
+    <string name="duracao_invalida">Informe uma duração válida (maior que zero).</string>
+    <string name="erro_ao_registrar">Erro ao registrar treino: %1$s</string>
+</resources>
