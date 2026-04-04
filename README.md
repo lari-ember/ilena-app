@@ -1,12 +1,14 @@
-# ilena-app · v0.1.0
+# ilena-app · v0.2.0
 
 Assistente pessoal com IA nativa para sistemas Android.
 
-## Estrutura do projeto
+> **🎯 Status de Migração**: Backend migrado de **Python (FastAPI)** para **Java (Spring Boot)** para melhor alinhamento com vagas de Fullstack Java + Angular.
+
+## 📋 Estrutura do projeto
 
 ```
 ilena-app/
-├── backend/          # API FastAPI (Python)
+├── backend/              # API FastAPI (Python) - LEGADO
 │   ├── main.py
 │   ├── models/
 │   ├── routes/
@@ -14,7 +16,22 @@ ilena-app/
 │   ├── database/
 │   ├── requirements.txt
 │   └── Dockerfile
-├── app/              # App Android (Kotlin)
+├── backend-java/         # API Spring Boot (Java) ⭐ NOVO
+│   ├── pom.xml
+│   ├── src/main/
+│   │   ├── java/com/ilena/backend/
+│   │   │   ├── config/       # CORS
+│   │   │   ├── controller/   # REST Controllers
+│   │   │   ├── service/      # Lógica de negócio
+│   │   │   ├── repository/   # Acesso a dados
+│   │   │   ├── model/        # Entidades
+│   │   │   ├── dto/          # DTOs
+│   │   │   └── IlenaBackendApplication.java
+│   │   └── resources/
+│   │       └── application.properties
+│   ├── Dockerfile
+│   └── README.md
+├── app/                  # App Android (Kotlin)
 │   ├── build.gradle.kts
 │   └── src/main/
 │       ├── AndroidManifest.xml
@@ -30,49 +47,67 @@ ilena-app/
 └── README.md
 ```
 
-## Backend
+## 🚀 Quick Start
 
-### Requisitos
+### Backend Java (RECOMENDADO)
 
-- Python 3.12+
-- pip
+```bash
+# Opção 1: Local com Maven
+cd backend-java
+mvn clean install
+mvn spring-boot:run
 
-### Executar localmente
+# Opção 2: Docker
+docker-compose up backend-java
+
+# Swagger UI: http://localhost:8000/swagger-ui.html
+```
+
+### Backend Python (Legado)
 
 ```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload
+
+# FastAPI Docs: http://localhost:8000/docs
 ```
 
-Acesse a documentação interativa em **http://localhost:8000/docs**.
-
-### Executar com Docker
+### Ambos com Docker Compose
 
 ```bash
-docker-compose up --build
+docker-compose up
+# Backend Java em localhost:8000
+# Backend Python em localhost:8001
 ```
 
-### Endpoints
+## 🔌 Endpoints (Java + Spring Boot)
 
-| Método | Rota       | Descrição                  |
-|--------|------------|----------------------------|
-| GET    | `/`        | Health-check da API        |
-| POST   | `/treino/` | Registrar um novo treino   |
-| GET    | `/treino/` | Listar treinos registrados |
+| Método | Rota | Descrição | Status |
+|--------|------|-----------|--------|
+| `GET` | `/` | Health-check da API | ✅ |
+| `POST` | `/treino` | Registrar novo treino | ✅ |
+| `GET` | `/treino` | Listar treinos | ✅ |
+| `GET` | `/treino/{id}` | Obter treino por ID | ✅ |
+| `PUT` | `/treino/{id}` | Atualizar treino | ✅ |
+| `DELETE` | `/treino/{id}` | Deletar treino | ✅ |
 
-#### Exemplo de requisição `POST /treino/`
+**Documentação Interativa**: http://localhost:8000/swagger-ui.html
 
-```json
-{
-  "nome": "Treino A - Peito",
-  "tipo": "musculação",
-  "duracao_minutos": 60,
-  "observacoes": "Aumentar carga no supino"
-}
+#### Exemplo: Criar treino
+
+```bash
+curl -X POST http://localhost:8000/treino \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Treino A - Peito",
+    "tipo": "musculação",
+    "duracaoMinutos": 60,
+    "observacoes": "Aumentar carga"
+  }'
 ```
 
-## App Android
+## 📱 App Android
 
 O projeto Android usa arquitetura **MVVM** com:
 
@@ -83,7 +118,39 @@ O projeto Android usa arquitetura **MVVM** com:
 
 > Para rodar no emulador Android, o endereço `10.0.2.2` aponta para o `localhost` da máquina host. Ajuste `BASE_URL` em `RetrofitClient.kt` conforme necessário.
 
-## Versionamento
+## ✨ Por que essa migração?
+
+### Stack anterior (Python)
+- ✅ Backend funcional com FastAPI
+- ⚠️ Desalinhado com vagas Java + Angular
+- ⚠️ Menos experiência em stack corporativo
+
+### Stack nova (Java + Spring Boot)
+- ✅ Alinhado com vagas de **Fullstack Java + Angular**
+- ✅ Experiência com **Spring Boot** (stack corporativo)
+- ✅ CRUD completo + validação + Swagger automático
+- ✅ Preparado para integração com banco de dados
+- ✅ Melhor para portfólio em vagas Java
+
+### Empresas-alvo
+- 🔴 **Stefanini** — Fullstack Java + Angular
+- 🔵 **BIP Brasil** — Fullstack Java + Angular (remoto)
+- 🟢 **TOTVS** — Vagas Java frequentes
+- 🟡 **Accenture / Capgemini** — Java corporativo
+- 🟠 **T-Systems** — Fullstack Java + Angular 100% remoto
+- ⚪ **Olist** — Vagas tech
+
+## 📊 Tecnologias
+
+| Camada | Tecnologia |
+|--------|-----------|
+| **Backend (novo)** | Java 17 + Spring Boot 3.2 + Maven |
+| **Backend (legado)** | Python 3.12 + FastAPI |
+| **Mobile** | Kotlin + Android |
+| **API Docs** | Swagger / OpenAPI |
+| **Container** | Docker + Docker Compose |
+
+## 📝 Versionamento
 
 Este projeto segue [Versionamento Semântico](https://semver.org/lang/pt-BR/).  
-Consulte o [CHANGELOG](CHANGELOG.md) para o histórico de mudanças.
+Consulte o [CHANGELOG](CHANGELOG.md) para o histórico completo.

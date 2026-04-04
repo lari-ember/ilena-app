@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.ilena.app.R
 import com.ilena.app.databinding.ActivityMainBinding
 import com.ilena.app.viewmodel.TreinoViewModel
 

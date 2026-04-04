@@ -4,5 +4,15 @@ services:
   backend:
     build: ./backend
     ports:
+      - "8001:8000"
+    restart: unless-stopped
+    container_name: ilena-backend-python
+
+  backend-java:
+    build: ./backend-java
+    ports:
       - "8000:8000"
     restart: unless-stopped
+    container_name: ilena-backend-java
+    environment:
+      JAVA_OPTS: "-Xmx256m"
