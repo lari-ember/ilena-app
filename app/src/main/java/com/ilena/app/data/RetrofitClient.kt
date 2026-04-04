@@ -29,4 +29,8 @@ object RetrofitClient {
     val treinoApiService: TreinoApiService by lazy {
         retrofit.create(TreinoApiService::class.java)
     }
+
+    val chatApiService: ChatApiService by lazy {
+        retrofit.create(ChatApiService::class.java)
+    }
 }

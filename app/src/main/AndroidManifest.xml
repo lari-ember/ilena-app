@@ -18,6 +18,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.ChatActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

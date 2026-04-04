@@ -1,5 +1,6 @@
 package com.ilena.app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -20,7 +21,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         observeViewModel()
+        setupListeners()
+    }
 
+    private fun setupListeners() {
         binding.btnRegistrarTreino.setOnClickListener {
             val nome = binding.etNomeTreino.text.toString().trim()
             val tipo = binding.etTipoTreino.text.toString().trim()
@@ -40,6 +44,10 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
             binding.btnRegistrarTreino.isEnabled = false
             viewModel.registrarTreino(nome, tipo, duracao)
+        }
+
+        binding.btnOpenChat.setOnClickListener {
+            startActivity(Intent(this, ChatActivity::class.java))
         }
     }
 
