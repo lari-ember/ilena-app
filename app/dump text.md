@@ -76,7 +76,7 @@ Como você tem base em Python, pense assim:
 
 ```kotlin
 // 1. Tipos básicos
-val age: Int = 25        // imutável
+val age = 25        // imutável
 var name = "João"        // mutável (tipo inferido)
 
 // 2. Funções
@@ -86,7 +86,7 @@ fun greet(name: String): String {
 
 // 3. Null-safety
 var nullable: String? = null  // pode ser null
-var nonNull: String = "sempre tem valor"
+var nonNull = "sempre tem valor"
 nullable?.length              // safe call
 nullable ?: "padrão"         // elvis operator
 
@@ -122,7 +122,7 @@ Você já tem:
 **O que você PRECISA entender:**
 
 **2.1.1 Activity Lifecycle**
-```kotlin
+```text
 onCreate() → onStart() → onResume() → [user interacts] 
 → onPause() → onStop() → onDestroy()
 ```
@@ -165,7 +165,7 @@ Seu código já usa:
 ```kotlin
 viewModelScope.launch {
     runCatching {
-        RetrofitClient.chatApiService.sendMessage(...)
+        RetrofitClient.chatApiService.sendMessage(ChatRequest("mensagem"))
     }.onSuccess { response ->
         // sucesso
     }.onFailure { error ->
@@ -186,7 +186,10 @@ launch { /* fire and forget */ }
 async { /* preciso do resultado */ }
 
 // Suspend functions
-suspend fun fetchData(): String { /* ... */ }
+suspend fun fetchData(): String { 
+    kotlinx.coroutines.delay(1000)
+    return "data" 
+}
 
 // Try-catch
 try {
@@ -270,8 +273,10 @@ public class User {
         return name;
     }
 }
+```
 
-// Kotlin equivalente
+**Kotlin equivalente:**
+```kotlin
 data class User(val name: String, val age: Int)
 ```
 
